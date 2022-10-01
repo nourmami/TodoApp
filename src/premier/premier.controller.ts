@@ -3,7 +3,7 @@ import { Controller, Delete, Get, Patch, Post, Put } from '@nestjs/common';
 @Controller('premier')
 export class PremierController {
 
-
+//le controller premier
 
  @Get()
 get() {
