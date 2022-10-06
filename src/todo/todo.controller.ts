@@ -1,6 +1,9 @@
 import { Body, Controller, Delete, Get,NotFoundException,Param,Patch, Post, Put } from '@nestjs/common';
 import bodyParser from 'body-parser';
 import {TodoModel} from './Model/TodoModel' ;
+import {AjoutTodoDto} from './DTO/ajout-todo.dto';
+import {UpdateTodoDto} from './DTO/update-todo.dto' ;
+
 @Controller('todo')
 export class TodoController {
     private todos :TodoModel[] = [];
@@ -24,11 +27,14 @@ export class TodoController {
     }
 
     @Post()
-    AjoutTodo(@Body('name') name:string ,
-    @Body('description') description : string
+    AjoutTodo(
+        @Body() todo : AjoutTodoDto
+        //@Body('name') name:string ,
+        //@Body('description') description : string
     ):TodoModel[]{
-        const _todo = new TodoModel(name,description); 
-        this.todos.push(_todo);
+        const {name,description}= todo;
+        const newTodo = new TodoModel(name,description); 
+        this.todos.push(newTodo);
         return this.todos;
     }
 
@@ -44,7 +50,8 @@ export class TodoController {
        }
 
     }
-
+    
+    //version1 avant DTO
     @Put('/:id')
     updateTodo(@Param('id') id:string,
     @Body() Newtodo : Partial<TodoModel>
@@ -65,5 +72,25 @@ export class TodoController {
        }
     }
 
+    //version 2 apres DTO
+
+    @Put()
+    updateTodo2(
+        @Body() updatedTodo : UpdateTodoDto
+    
+    ){
+       const {name,description,id}= updatedTodo;
+       let todo = this.findTodoById(id)
+                           //? :s'il y a un newtodo.name retourne le  // : sinon retourne le nom d'origine
+       todo.name=name
+       todo.description=description
+       if(todo){
+            const todoId = this.todos.indexOf(todo);
+            this.todos.splice(todoId, 1,todo);
+            return this.todos;
+        } else {
+            throw new NotFoundException("le todo n'existe pas ");
+       }
+    }
     }
 
