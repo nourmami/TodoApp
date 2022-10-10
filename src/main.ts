@@ -6,7 +6,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // creer une app nest a laide de NestFactory a partir du module AppModule
   await app.listen(3000);
-  //app.useGlobalPipes(new ValidationPipe()); (ne fonctionne pas pourquoi ?)
+  app.useGlobalPipes(new ValidationPipe({
+    transform : true ,
+    whitelist : true ,
+    forbidNonWhitelisted : true
+  })); //(ne fonctionne pas pourquoi ?)
 }
 
 bootstrap();
