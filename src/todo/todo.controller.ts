@@ -26,8 +26,8 @@ export class TodoController {
 
     @Post()
     addTodo(
-        @Body(ValidationPipe) todo : addTodoDto
-    ):TodoModel[]{
+        @Body() todo : addTodoDto
+        ):TodoModel[]{
         return this.todoService.addTodo(todo);
     }
 

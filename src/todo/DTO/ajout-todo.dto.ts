@@ -6,7 +6,7 @@ import { MinLength, MaxLength, IsNotEmpty, IsString,Length,IsOptional } from 'cl
 export class addTodoDto  {
 
         @IsNotEmpty()
-        @Length(2, 10)
+        @Length(3, 10)
         name:string;
 
         @IsNotEmpty()
