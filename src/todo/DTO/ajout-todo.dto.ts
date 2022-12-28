@@ -1,6 +1,7 @@
 
 import { updateTodoDto } from './update-todo.dto';
-import { MinLength, MaxLength, IsNotEmpty, IsString,Length,IsOptional } from 'class-validator';
+import { MinLength, MaxLength, IsNotEmpty, IsString,Length,IsOptional, IsIn } from 'class-validator';
+import {TodoStatusEnum} from '../Model/TodoModel' ;
 
 
 export class addTodoDto  {
@@ -12,9 +13,12 @@ export class addTodoDto  {
         @IsNotEmpty()
         @IsString()
         @MinLength(10, {
-                // here, $constraint1 will be replaced with "10", and $value with actual supplied value
-                message: 'Title is too short. Minimal length is $constraint1 characters, but actual is $value',
-              })
+                message: 'Description is too short. Minimal length is $constraint1 characters, but actual is $value',
+        })
         description:string;
+
+        @IsIn(['en cours','en attente','finalisé'])
+        statut:TodoStatusEnum;
 }
+
 

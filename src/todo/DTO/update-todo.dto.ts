@@ -1,9 +1,12 @@
-import { MinLength, MaxLength, IsNotEmpty, IsString,Length,IsOptional,IsIn } from 'class-validator';
+import { MinLength, MaxLength, IsNotEmpty, IsString,Length,IsOptional,IsIn, IsNumber } from 'class-validator';
 import {TodoStatusEnum} from '../Model/TodoModel' ;
+import {Type} from 'class-transformer';
 export class updateTodoDto {
 
+        @Type(() => Number)
+        @IsNumber() 
         @IsOptional()
-        id:string;
+        id:number;
 
         @IsOptional()
         @Length(2, 10)

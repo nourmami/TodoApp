@@ -16,11 +16,10 @@ export class TodoModel {
 
     constructor(_name: string , _description : string){
         this.statut = TodoStatusEnum.waiting;
-        this.id = uuidv4();
+        // this.id = uuidv4();
         this.description = _description;
         this.name = _name ;
         this.date= new Date();
-
     }
 
 
